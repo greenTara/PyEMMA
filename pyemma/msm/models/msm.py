@@ -1014,7 +1014,7 @@ class MSM(_Model):
     # Simulation
     ################################################################################
 
-    def generate_traj_initialized(initial_states, time_steps):
+    def simulate_initialized(initial_states, time_steps):
         """
         Generates trajectories of the model given a set of initial states
 
@@ -1030,12 +1030,12 @@ class MSM(_Model):
             trajectory = [initial_state]
             current_state = initial_state
             for j in range (1, n):
-                new_state = np.random.choice(n, 1, transition_matrix(self)[current_state]
+                new_state = np.random.choice(n, 1, self.transition_matrix()[current_state])
                 trajectory.append(new_state)
             trajectories.append(trajectory)
         return trajectories
 
-    def generate_traj(num_traj, time_steps):
+    def simulate(num_traj, time_steps):
         """
         Generates trajectories of the model with initial states sampled from the
         stationary distribution.
@@ -1047,5 +1047,5 @@ class MSM(_Model):
         time_steps : int 
             number of time steps to simulate
         """
-        initial_states = np.random.choice(n, 1, stationary_distribution(self))
-        return generate_traj_initialized(initial_states, time_steps)
+        initial_states = np.random.choice(n, 1,self.stationary_distribution())
+        return simulate_initialized(initial_states, time_steps)
