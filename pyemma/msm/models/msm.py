@@ -1014,7 +1014,7 @@ class MSM(_Model):
     # Simulation
     ################################################################################
 
-    def simulate_initialized(initial_states, time_steps):
+    def simulate_initialized(self, initial_states, time_steps):
         """
         Generates trajectories of the model given a set of initial states
 
@@ -1035,7 +1035,7 @@ class MSM(_Model):
             trajectories.append(trajectory)
         return trajectories
 
-    def simulate(num_traj, time_steps):
+    def simulate(self, num_traj, time_steps):
         """
         Generates trajectories of the model with initial states sampled from the
         stationary distribution.
