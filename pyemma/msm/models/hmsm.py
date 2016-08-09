@@ -451,16 +451,16 @@ class HMSM(_MSM):
         time_steps : int 
             number of time steps to simulate
         """
-        num_traj = np.size(initial_states)
-        M = msm.models.MSM(Pcoarse)
+        num_traj = _np.size(initial_states)
+        M = _MSM(Pcoarse)
         hidden_trajectories = M.simulate_intialized(initial_states, time_steps)
-        observables = np.ndarray(np.shape(hidden_trajectories), int)
-        kr= np.shape(observables)[0]
-        kc= np.shape(observables)[1]
+        observables = _np.ndarray(np.shape(hidden_trajectories), int)
+        kr= _np.shape(observables)[0]
+        kc= _np.shape(observables)[1]
         for i in range (0, kr):
             for j in range (0, kc):
                 hs = hidden_trajectories[i, j]
-                x =np.random.choice(a=3, p=Pobs[hs])
+                x = _np.random.choice(a=3, p=Pobs[hs])
                 observables[i,j] = x
         return [hidden_trajectories, observables]
 
@@ -476,14 +476,14 @@ class HMSM(_MSM):
         time_steps : int 
             number of time steps to simulate
         """
-        M = msm.models.MSM(Pcoarse)
+        M = _MSM(Pcoarse)
         hidden_trajectories = M.simulate(num_traj, time_steps)
-        observables = np.ndarray(np.shape(hidden_trajectories), int)
-        kr= np.shape(observables)[0]
-        kc= np.shape(observables)[1]
+        observables = _np.ndarray(_np.shape(hidden_trajectories), int)
+        kr= _np.shape(observables)[0]
+        kc= _np.shape(observables)[1]
         for i in range (0, kr):
             for j in range (0, kc):
                 hs = hidden_trajectories[i, j]
-                x =np.random.choice(a=3, p=Pobs[hs])
+                x = _np.random.choice(a=3, p=Pobs[hs])
                 observables[i,j] = x
         return [hidden_trajectories, observables]
