@@ -454,7 +454,7 @@ class HMSM(_MSM):
         num_traj = _np.size(initial_states)
         M = _MSM(self.P)
         hidden_trajectories = M.simulate_initialized(initial_states, time_steps)
-        observables = _np.ndarray(np.shape(hidden_trajectories), int)
+        observables = _np.ndarray(_np.shape(hidden_trajectories), int)
         kr= _np.shape(observables)[0]
         kc= _np.shape(observables)[1]
         for i in range (0, kr):
