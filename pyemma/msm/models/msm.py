@@ -1038,7 +1038,7 @@ class MSM(_Model):
                 new_state = np.random.choice(a=a, p=p)
                 trajectory[j] = new_state
                 current_state = new_state
-            trajectories[i,:] = trajectories
+            trajectories[i,:] = trajectory
         return trajectories
 
     def simulate(self, num_traj, time_steps):
