@@ -1032,7 +1032,7 @@ class MSM(_Model):
             print "Current State: ", current_state
             for j in range (1, time_steps):
                 new_state = np.random.choice(time_steps, 1, self.transition_matrix()[current_state])
-                print "New State: ", new_state
+                print "New State:", new_state
                 trajectory.append(new_state)
             trajectories.append(trajectory)
         return trajectories
