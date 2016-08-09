@@ -435,3 +435,55 @@ class HMSM(_MSM):
 
         """
         return _np.argmax(self.observation_probabilities, axis=0)
+
+    ################################################################################
+    # Simulation
+    ################################################################################
+
+    def simulate_initialized(self, initial_states, time_steps):
+        """
+        Generates trajectories of the model given a set of initial states
+
+        Parameters
+        ----------
+        initial_states : int array 
+            set of initial states
+        time_steps : int 
+            number of time steps to simulate
+        """
+        num_traj = np.size(initial_states)
+        M = msm.models.MSM(Pcoarse)
+        hidden_trajectories = M.simulate_intialized(initial_states, time_steps)
+        observables = np.ndarray(np.shape(hidden_trajectories), int)
+        kr= np.shape(observables)[0]
+        kc= np.shape(observables)[1]
+        for i in range (0, kr):
+            for j in range (0, kc):
+                hs = hidden_trajectories[i, j]
+                x =np.random.choice(a=3, p=Pobs[hs])
+                observables[i,j] = x
+        return [hidden_trajectories, observables]
+
+    def simulate(self, num_traj, time_steps):
+        """
+        Generates trajectories of the model with initial states sampled from the
+        stationary distribution.
+
+        Parameters
+        ----------
+        num_traj : int 
+            number of trajectories
+        time_steps : int 
+            number of time steps to simulate
+        """
+        M = msm.models.MSM(Pcoarse)
+        hidden_trajectories = M.simulate(num_traj, time_steps)
+        observables = np.ndarray(np.shape(hidden_trajectories), int)
+        kr= np.shape(observables)[0]
+        kc= np.shape(observables)[1]
+        for i in range (0, kr):
+            for j in range (0, kc):
+                hs = hidden_trajectories[i, j]
+                x =np.random.choice(a=3, p=Pobs[hs])
+                observables[i,j] = x
+        return [hidden_trajectories, observables]
