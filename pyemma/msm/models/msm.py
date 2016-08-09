@@ -1025,16 +1025,21 @@ class MSM(_Model):
         time_steps : int 
             number of time steps to simulate
         """
-        trajectories = []
-        for initial_state in initial_states:
-            trajectory = [initial_state]
+        num_traj = np.size(initial_states)
+        trajectories = np.ndarray(shape=(num_traj, time_steps+1), dtype=int) 
+        trajectory = np.array(np.arange(time_steps+1)) 
+        for i in arange(size(initial_states)):
+            initial_state = initial_states[i]
+            trajectory[0] = initial_state
             current_state = initial_state
-            print("Current State:", current_state)
             for j in range (1, time_steps):
-                new_state = np.random.choice(time_steps, 1, self.transition_matrix()[current_state])
+                p = self.P[current_state,:]
+                a = np.size(p)
+                new_state = np.random.choice(a=a, p=p)
                 print("New State:", new_state)
-                trajectory.append(new_state)
-            trajectories.append(trajectory)
+                trajectory[j] = new_state
+                current_state = new_state
+            trajectories[i,:] = trajectories
         return trajectories
 
     def simulate(self, num_traj, time_steps):
@@ -1049,5 +1054,7 @@ class MSM(_Model):
         time_steps : int 
             number of time steps to simulate
         """
-        initial_states = np.random.choice(time_steps, 1, self.stationary_distribution())
+        p = self.stationary_distribution()
+        a = np.size(p)
+        initial_states = np.random.choice(a = a, size = num_traj, p = p)
         return simulate_initialized(initial_states, time_steps)
