@@ -1032,7 +1032,7 @@ class MSM(_Model):
             initial_state = initial_states[i]
             trajectory[0] = initial_state
             current_state = initial_state
-            for j in range (1, time_steps):
+            for j in range (1, time_steps+1):
                 p = self.P[current_state,:]
                 a = np.size(p)
                 new_state = np.random.choice(a=a, p=p)
