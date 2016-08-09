@@ -1028,7 +1028,7 @@ class MSM(_Model):
         num_traj = np.size(initial_states)
         trajectories = np.ndarray(shape=(num_traj, time_steps+1), dtype=int) 
         trajectory = np.array(np.arange(time_steps+1)) 
-        for i in np.arange(size(initial_states)):
+        for i in np.arange(np.size(initial_states)):
             initial_state = initial_states[i]
             trajectory[0] = initial_state
             current_state = initial_state
